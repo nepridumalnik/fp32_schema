@@ -33,11 +33,26 @@ module tb_fp32_mul;
     a   = 0;
     b   = 0;
 
+    $display("==========================================");
+    $display("| Float32 Hex   |        Expected value  |");
+    $display("==========================================");
+    $display(" 32'h3F800000   |     1.0");
+    $display(" 32'h40000000   |     2.0");
+    $display(" 32'h40400000   |     3.0");
+    $display(" 32'h40A00000   |     5.0");
+    $display(" 32'h00000000   |     0.0");
+    $display(" 32'h7F800000   |    +Inf");
+    $display(" 32'h7FC00000   |     NaN");
+    $display(" 32'h4F000000   |   2^31 = 2_147_483_648");
+    $display("==========================================");
+
     $dumpfile("out/wave.vcd");
     $dumpvars(0, tb_fp32_mul);
 
     // Тесты
-    // Проверка: https://gregstoll.com/~gregstoll/floattohex/
+    // Проверка: https://gregstoll.com/~gregstoll/floattohex
+    $display("Tests:");
+    $display("==========================================");
     test_case(32'h3F800000, 32'h40000000);  // 1.0 * 2.0
     test_case(32'h40A00000, `ZERO32);  // 5.0 * 0.0
     test_case(`ZERO32, 32'h3F800000);  // 0.0 * 1.0
@@ -48,6 +63,8 @@ module tb_fp32_mul;
     test_case(32'h3F800000, `NAN32);  // 1.0 * NaN = NaN
     test_case(32'h4F000000, 32'h4F000000);  // 2^31 * 2^31 = overflow
     test_case(32'h00800000, 32'h00800000);  // denormal * denormal = underflow
+
+    $display("==========================================");
     $finish;
   end
 endmodule
