@@ -43,7 +43,7 @@ module tb_fp32_mul;
     $display(" 32'h00000000   |     0.0");
     $display(" 32'h7F800000   |    +Inf");
     $display(" 32'h7FC00000   |     NaN");
-    $display(" 32'h4F000000   |   2^31 = 2_147_483_648");
+    $display(" 32'h4F000000   |   2^31 = 2 147 483 648");
     $display("==========================================");
 
     $dumpfile("out/wave.vcd");
