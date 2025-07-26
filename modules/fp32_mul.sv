@@ -100,10 +100,12 @@ module fp32_mul (
 
   // Основная логика
   always_comb begin
+    // Обработка особых случаев
     if (is_nan_a || is_nan_b) res_next = `NAN32;
     else if ((is_inf_a && is_zero_b) || (is_inf_b && is_zero_a)) res_next = `NAN32;
     else if (is_inf_a || is_inf_b) res_next = `P_INF32;
     else if (is_zero_a || is_zero_b) res_next = `ZERO32;
+    // Умножение
     else begin
       mant_a   = {1'b1, frac_a};
       mant_b   = {1'b1, frac_b};
@@ -115,8 +117,10 @@ module fp32_mul (
         exp_sum  = exp_sum + 1;
       end
 
+      // Обработка особых случаев
       if (exp_sum >= 255) res_next = `P_INF32;
       else if (exp_sum <= 0) res_next = `ZERO32;
+      // Возврат результатов
       else begin
         exp_res  = exp_sum[7:0];
         res_next = {1'b0, exp_res, mant_res[46:24]};
@@ -128,5 +132,4 @@ module fp32_mul (
   always_ff @(posedge clk) begin
     result <= res_next;
   end
-
 endmodule
