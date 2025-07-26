@@ -1,3 +1,5 @@
+// Полезная ссылка: https://mpsu.github.io/APS
+
 `include "types.sv"
 `include "const.sv"
 
