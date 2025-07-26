@@ -15,6 +15,7 @@ $(TARGET): $(SRC) | $(OUTDIR)
 	iverilog -g2012 -Imodules -o $(TARGET) $(SRC)
 
 test: $(TARGET)
+	clear
 	vvp $(TARGET)
 
 clean:
